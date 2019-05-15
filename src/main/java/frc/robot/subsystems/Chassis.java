@@ -15,13 +15,37 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * This class defines the chassis subsystem and all of its parts.
  */
 public class Chassis extends Subsystem {
-    private final WPI_TalonSRX leftFrontDriveMotor = Robot.chassisleftFrontDriveMotor;
-    private final WPI_TalonSRX leftRearDriveMotor = Robot.chassisleftRearDriveMotor;
-    private final SpeedControllerGroup leftSideDriveMotors = Robot.chassisleftSideDriveMotors;
-    private final WPI_TalonSRX rightFrontDriveMotor = Robot.chassisrightFrontDriveMotor;
-    private final WPI_TalonSRX rightRearDriveMotor = Robot.chassisrightRearDriveMotor;
-    private final SpeedControllerGroup rightSideDriveMotors = Robot.chassisrightSideDriveMotors;
-    private final DifferentialDrive robotDrive = Robot.chassisrobotDrive;
+    /*private WPI_TalonSRX leftFrontDriveMotor = Robot.chassisleftFrontDriveMotor;
+    private WPI_TalonSRX leftRearDriveMotor = Robot.chassisleftRearDriveMotor;
+    private SpeedControllerGroup leftSideDriveMotors = Robot.chassisleftSideDriveMotors;
+    private WPI_TalonSRX rightFrontDriveMotor = Robot.chassisrightFrontDriveMotor;
+    private WPI_TalonSRX rightRearDriveMotor = Robot.chassisrightRearDriveMotor;
+    private SpeedControllerGroup rightSideDriveMotors = Robot.chassisrightSideDriveMotors;
+    private DifferentialDrive robotDrive = Robot.chassisrobotDrive;*/
+
+    private WPI_TalonSRX leftFrontDriveMotor;
+    private WPI_TalonSRX leftRearDriveMotor ;
+    private SpeedControllerGroup leftSideDriveMotors;
+    private WPI_TalonSRX rightFrontDriveMotor;
+    private WPI_TalonSRX rightRearDriveMotor ;
+    private SpeedControllerGroup rightSideDriveMotors;
+    private DifferentialDrive robotDrive;
+
+     
+
+   
+
+    public Chassis(WPI_TalonSRX leftFrontDriveMotor , WPI_TalonSRX  leftRearDriveMotor  ,WPI_TalonSRX  rightFrontDriveMotor,WPI_TalonSRX rightRearDriveMotor,SpeedControllerGroup leftSideDriveMotors ,  SpeedControllerGroup rightSideDriveMotors, DifferentialDrive robotDrive  ){
+      this.leftFrontDriveMotor = leftFrontDriveMotor;
+      this.leftRearDriveMotor = leftRearDriveMotor;
+      this.leftSideDriveMotors = leftSideDriveMotors;
+      this.rightFrontDriveMotor = rightFrontDriveMotor;
+      this.rightRearDriveMotor = rightRearDriveMotor;
+      this.rightSideDriveMotors =rightSideDriveMotors;
+      this.robotDrive = robotDrive;
+
+    }
+
 
     @Override
     public void initDefaultCommand() {
@@ -170,4 +194,60 @@ public class Chassis extends Subsystem {
       //SmartDashboard.putData("Right Side Drive Motors", rightSideDriveMotors);
       SmartDashboard.putData("Chassis", robotDrive);
     }
+
+    public WPI_TalonSRX getLeftFrontDriveMotor() {
+      return this.leftFrontDriveMotor;
+}
+
+public void setLeftFrontDriveMotor(WPI_TalonSRX leftFrontDriveMotor) {
+      this.leftFrontDriveMotor = leftFrontDriveMotor;
+}
+
+public WPI_TalonSRX getLeftRearDriveMotor() {
+      return this.leftRearDriveMotor;
+}
+
+public void setLeftRearDriveMotor(WPI_TalonSRX leftRearDriveMotor) {
+      this.leftRearDriveMotor = leftRearDriveMotor;
+}
+
+public SpeedControllerGroup getLeftSideDriveMotors() {
+      return this.leftSideDriveMotors;
+}
+
+public void setLeftSideDriveMotors(SpeedControllerGroup leftSideDriveMotors) {
+      this.leftSideDriveMotors = leftSideDriveMotors;
+}
+
+public WPI_TalonSRX getRightFrontDriveMotor() {
+      return this.rightFrontDriveMotor;
+}
+
+public void setRightFrontDriveMotor(WPI_TalonSRX rightFrontDriveMotor) {
+      this.rightFrontDriveMotor = rightFrontDriveMotor;
+}
+
+public WPI_TalonSRX getRightRearDriveMotor() {
+      return this.rightRearDriveMotor;
+}
+
+public void setRightRearDriveMotor(WPI_TalonSRX rightRearDriveMotor) {
+      this.rightRearDriveMotor = rightRearDriveMotor;
+}
+
+public SpeedControllerGroup getRightSideDriveMotors() {
+      return this.rightSideDriveMotors;
+}
+
+public void setRightSideDriveMotors(SpeedControllerGroup rightSideDriveMotors) {
+      this.rightSideDriveMotors = rightSideDriveMotors;
+}
+
+public DifferentialDrive getRobotDrive() {
+      return this.robotDrive;
+}
+
+public void setRobotDrive(DifferentialDrive robotDrive) {
+      this.robotDrive = robotDrive;
+}
 }

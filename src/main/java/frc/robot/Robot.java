@@ -169,71 +169,78 @@ public class Robot extends TimedRobot {
 
   
       
+ public void mapSubsystemAddresses(){
+    chassisSensorspowerDistributionPanel = new PowerDistributionPanel(CHASSIS_PWD_DIST_PANEL);
+    ledControlCANifier = new CANifier(LED_CANIF_CONTRL);
+    chassisleftFrontDriveMotor = new WPI_TalonSRX(CHASSIS_L_FRDM);
+    chassisleftRearDriveMotor = new WPI_TalonSRX(CHASSIS_L_RRDM);
+    chassisrightFrontDriveMotor = new WPI_TalonSRX(CHASSIS_R_FRDM);
+    chassisrightRearDriveMotor = new WPI_TalonSRX(CHASSIS_R_RRDM);
+    elevatorFrontMotor = new WPI_TalonSRX(ELEVATOR_FRDM);
+    elevatorRearMotor = new WPI_TalonSRX(ELEVATOR_RRDM);
+    manipulatorPivotMotor = new WPI_TalonSRX(PIVOT_M);  
+    manipulatorLeftWheelMotor = new WPI_VictorSPX(LEFT_WHEEL_M);
+    manipulatorRightWheelMotor = new WPI_VictorSPX(RIGHT_WHEEL_M);
+    liftLeftFrontMotor = new WPI_TalonSRX(LIFT_L_FRDM);
+    liftLeftRearMotor = new WPI_TalonSRX(LIFT_L_RRDM);
+    liftRightFrontMotor = new WPI_TalonSRX(LIFT_R_FRDM);
+    liftRightRearMotor = new WPI_TalonSRX(LIFT_R_RRDM);
+ }
 
+
+ public void buildChassis(){
+
+  chassisleftSideDriveMotors = new SpeedControllerGroup(chassisleftFrontDriveMotor, chassisleftRearDriveMotor);
+  chassisleftSideDriveMotors.setInverted(true);
+  chassisleftSideDriveMotors.setName("Chassis", "leftSideDriveMotors");
+
+          
+  chassisrightSideDriveMotors = new SpeedControllerGroup(chassisrightFrontDriveMotor, chassisrightRearDriveMotor);
+  chassisrightSideDriveMotors.setInverted(true);
+  chassisrightSideDriveMotors.setName("Chassis", "rightSideDriveMotors");
+  
+  chassisrobotDrive = new DifferentialDrive(chassisleftSideDriveMotors, chassisrightSideDriveMotors);
+  chassisrobotDrive.setSafetyEnabled(true);
+  chassisrobotDrive.setExpiration(5.0);
+  chassisrobotDrive.setMaxOutput(1.0);
+  chassisrobotDrive.setName("Chassis", "robotDrive");
+
+  
+  chassisSensorspowerDistributionPanel = new PowerDistributionPanel(0);
+  chassisSensorspowerDistributionPanel.setName("ChassisSensors", "powerDistributionPanel");
+
+  chassisSensorsIMU = new ADIS16448_IMU();
+  chassisSensorsIMU.setName("ChassisSensors", "IMU");
+
+  chassisSensorsXGyro = new XGyro();
+  chassisSensorsXGyro.setName("ChassisSensors", "XGyro");
+  chassisSensorsYGyro = new YGyro();
+  chassisSensorsXGyro.setName("ChassisSensors", "YGyro");
+  chassisSensorsZGyro = new ZGyro();
+  chassisSensorsXGyro.setName("ChassisSensors", "ZGyro");
+
+  chassisSensorsLeftEncoder = new SRXEncoder(chassisleftFrontDriveMotor);
+  chassisSensorsLeftEncoder.setName("ChassisSensors", "LeftEncoder");
+  chassisSensorsRightEncoder = new SRXEncoder(chassisrightFrontDriveMotor);
+  chassisSensorsRightEncoder.setName("ChassisSensors", "RightEncoder");
+  
+  chassisSensorsIMUAccelerometer = new IMUAccelerometer();
+  chassisSensorsIMUAccelerometer.setName("ChassisSensors", "IMUAccelerometer");
+ }
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
    */
   @Override
   public void robotInit() {
-      chassisSensorspowerDistributionPanel = new PowerDistributionPanel(CHASSIS_PWD_DIST_PANEL);
-      ledControlCANifier = new CANifier(LED_CANIF_CONTRL);
-      chassisleftFrontDriveMotor = new WPI_TalonSRX(CHASSIS_L_FRDM);
-      chassisleftRearDriveMotor = new WPI_TalonSRX(CHASSIS_L_RRDM);
-      chassisrightFrontDriveMotor = new WPI_TalonSRX(CHASSIS_R_FRDM);
-      chassisrightRearDriveMotor = new WPI_TalonSRX(CHASSIS_R_RRDM);
-      elevatorFrontMotor = new WPI_TalonSRX(ELEVATOR_FRDM);
-      elevatorRearMotor = new WPI_TalonSRX(ELEVATOR_RRDM);
-      manipulatorPivotMotor = new WPI_TalonSRX(PIVOT_M);  
-      manipulatorLeftWheelMotor = new WPI_VictorSPX(LEFT_WHEEL_M);
-      manipulatorRightWheelMotor = new WPI_VictorSPX(RIGHT_WHEEL_M);
-      liftLeftFrontMotor = new WPI_TalonSRX(LIFT_L_FRDM);
-      liftLeftRearMotor = new WPI_TalonSRX(LIFT_L_RRDM);
-      liftRightFrontMotor = new WPI_TalonSRX(LIFT_R_FRDM);
-      liftRightRearMotor = new WPI_TalonSRX(LIFT_R_RRDM);
 
+        mapSubsystemAddresses();
+        buildChassis();
 
    
-        chassisleftSideDriveMotors = new SpeedControllerGroup(chassisleftFrontDriveMotor, chassisleftRearDriveMotor);
-        chassisleftSideDriveMotors.setInverted(true);
-        chassisleftSideDriveMotors.setName("Chassis", "leftSideDriveMotors");
-      
-                
-        chassisrightSideDriveMotors = new SpeedControllerGroup(chassisrightFrontDriveMotor, chassisrightRearDriveMotor);
-        chassisrightSideDriveMotors.setInverted(true);
-        chassisrightSideDriveMotors.setName("Chassis", "rightSideDriveMotors");
-        
-        chassisrobotDrive = new DifferentialDrive(chassisleftSideDriveMotors, chassisrightSideDriveMotors);
-        chassisrobotDrive.setSafetyEnabled(true);
-        chassisrobotDrive.setExpiration(5.0);
-        chassisrobotDrive.setMaxOutput(1.0);
-        chassisrobotDrive.setName("Chassis", "robotDrive");
-
-        
-        chassisSensorspowerDistributionPanel = new PowerDistributionPanel(0);
-        chassisSensorspowerDistributionPanel.setName("ChassisSensors", "powerDistributionPanel");
-
-        chassisSensorsIMU = new ADIS16448_IMU();
-        chassisSensorsIMU.setName("ChassisSensors", "IMU");
-
-        chassisSensorsXGyro = new XGyro();
-        chassisSensorsXGyro.setName("ChassisSensors", "XGyro");
-        chassisSensorsYGyro = new YGyro();
-        chassisSensorsXGyro.setName("ChassisSensors", "YGyro");
-        chassisSensorsZGyro = new ZGyro();
-        chassisSensorsXGyro.setName("ChassisSensors", "ZGyro");
-
-        chassisSensorsLeftEncoder = new SRXEncoder(chassisleftFrontDriveMotor);
-        chassisSensorsLeftEncoder.setName("ChassisSensors", "LeftEncoder");
-        chassisSensorsRightEncoder = new SRXEncoder(chassisrightFrontDriveMotor);
-        chassisSensorsRightEncoder.setName("ChassisSensors", "RightEncoder");
-        
-        chassisSensorsIMUAccelerometer = new IMUAccelerometer();
-        chassisSensorsIMUAccelerometer.setName("ChassisSensors", "IMUAccelerometer");
 
        
         elevatorFrontMotor.setNeutralMode(NeutralMode.Brake);
-
         elevatorRearMotor.setNeutralMode(NeutralMode.Brake);
         elevatorMotors = new SpeedControllerGroup(elevatorFrontMotor, elevatorRearMotor);
         elevatorMotors.setName("Elevator", "ElevatorMotors");
@@ -274,9 +281,7 @@ public class Robot extends TimedRobot {
         autonSpeed = 0.5;
         autonRotation = 0.0;
         autonTime = 5.0;
-
-
-        chassis = new Chassis();
+         chassis = new  Chassis(chassisleftFrontDriveMotor,chassisleftRearDriveMotor,chassisrightFrontDriveMotor, chassisrightRearDriveMotor, chassisleftSideDriveMotors,chassisrightSideDriveMotors,chassisrobotDrive);
         chassisSensors = new ChassisSensors();
         dashboard = new Dashboard();
         debugger = new Debugger();
@@ -312,6 +317,8 @@ public class Robot extends TimedRobot {
 
 
   }
+
+
 
   /**
    * This function is called every robot packet, no matter the mode. Use
