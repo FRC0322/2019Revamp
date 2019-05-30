@@ -18,7 +18,7 @@ public class OI {
     
 
     public OI() {
-        driveStick = new F310Controller(0);
+        /*driveStick = new F310Controller(0);
         brakeButton = new JoystickButton(driveStick, 2);
         brakeButton.whileActive(new Brakes());
         liftButton = new JoystickButton(driveStick, 10);
@@ -31,7 +31,7 @@ public class OI {
         spitButton = new JoystickButton(manipulatorStick, 4);
         spitButton.whileActive(new SpitBall());
         SmartDashboard.putData("ResetEncoders", new ResetEncoders());
-        SmartDashboard.putData("ResetGyro", new ResetGyro());
+        SmartDashboard.putData("ResetGyro", new ResetGyro());*/
     }
 
     public F310Controller getDriveStick() {

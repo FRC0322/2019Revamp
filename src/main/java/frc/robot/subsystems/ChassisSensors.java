@@ -13,11 +13,12 @@ import frc.robot.utilities.*;
  * This class defines sensors on the chassis.
  */
 public class ChassisSensors extends Subsystem {
-    private final PowerDistributionPanel powerDistributionPanel = Robot.chassisSensorspowerDistributionPanel;
-	private final ADIS16448_IMU IMU = Robot.chassisSensorsIMU;
+   /* private final PowerDistributionPanel powerDistributionPanel = Robot.chassisSensorspowerDistributionPanel;
+	
 	private final XGyro XGyro = Robot.chassisSensorsXGyro;
 	private final YGyro YGyro = Robot.chassisSensorsYGyro;
-	private final ZGyro ZGyro = Robot.chassisSensorsZGyro;
+	private final ZGyro ZGyro = Robot.chassisSensorsZGyro;*/
+	private final ADIS16448_IMU IMU = Robot.chassisSensorsIMU;
 	private final IMUAccelerometer IMUAccel = Robot.chassisSensorsIMUAccelerometer;
 	private final SRXEncoder leftEncoder = Robot.chassisSensorsLeftEncoder;
     private final SRXEncoder rightEncoder = Robot.chassisSensorsRightEncoder;
@@ -133,13 +134,14 @@ public class ChassisSensors extends Subsystem {
 		//SmartDashboard.putNumber("Y-Axis Acceleration", IMU.getAccelY());
 		//SmartDashboard.putNumber("Z-Axis Acceleration", IMU.getAccelZ());
 		//SmartDashboard.putNumber("Temperature", IMU.getTemperature());
-		SmartDashboard.putData("IMU", IMU);
+
+		/*SmartDashboard.putData("IMU", IMU);
 		SmartDashboard.putData("PDP", powerDistributionPanel);
 		SmartDashboard.putData("Gyro X", XGyro);
 		SmartDashboard.putData("Gyro Y", YGyro);
 		SmartDashboard.putData("Gyro Z", ZGyro);
 		SmartDashboard.putData("Accelerometer", IMUAccel);
 		SmartDashboard.putData("Left Encoder", leftEncoder);
-        SmartDashboard.putData("Right Encoder", rightEncoder);
+        SmartDashboard.putData("Right Encoder", rightEncoder);*/
 	}
 }

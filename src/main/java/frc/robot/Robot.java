@@ -189,43 +189,45 @@ public class Robot extends TimedRobot {
 
 
  public void buildChassis(){
+ 
 
   chassisleftSideDriveMotors = new SpeedControllerGroup(chassisleftFrontDriveMotor, chassisleftRearDriveMotor);
   chassisleftSideDriveMotors.setInverted(true);
-  chassisleftSideDriveMotors.setName("Chassis", "leftSideDriveMotors");
-
-          
+  chassisleftSideDriveMotors.setName("Chassis", "leftSideDriveMotors");    
+  
   chassisrightSideDriveMotors = new SpeedControllerGroup(chassisrightFrontDriveMotor, chassisrightRearDriveMotor);
   chassisrightSideDriveMotors.setInverted(true);
   chassisrightSideDriveMotors.setName("Chassis", "rightSideDriveMotors");
-  
   chassisrobotDrive = new DifferentialDrive(chassisleftSideDriveMotors, chassisrightSideDriveMotors);
+  
+  
   chassisrobotDrive.setSafetyEnabled(true);
   chassisrobotDrive.setExpiration(5.0);
   chassisrobotDrive.setMaxOutput(1.0);
   chassisrobotDrive.setName("Chassis", "robotDrive");
-
-  
   chassisSensorspowerDistributionPanel = new PowerDistributionPanel(0);
   chassisSensorspowerDistributionPanel.setName("ChassisSensors", "powerDistributionPanel");
-
+  
+ 
   chassisSensorsIMU = new ADIS16448_IMU();
+ 
   chassisSensorsIMU.setName("ChassisSensors", "IMU");
-
   chassisSensorsXGyro = new XGyro();
   chassisSensorsXGyro.setName("ChassisSensors", "XGyro");
   chassisSensorsYGyro = new YGyro();
   chassisSensorsXGyro.setName("ChassisSensors", "YGyro");
   chassisSensorsZGyro = new ZGyro();
   chassisSensorsXGyro.setName("ChassisSensors", "ZGyro");
-
   chassisSensorsLeftEncoder = new SRXEncoder(chassisleftFrontDriveMotor);
   chassisSensorsLeftEncoder.setName("ChassisSensors", "LeftEncoder");
   chassisSensorsRightEncoder = new SRXEncoder(chassisrightFrontDriveMotor);
   chassisSensorsRightEncoder.setName("ChassisSensors", "RightEncoder");
-  
   chassisSensorsIMUAccelerometer = new IMUAccelerometer();
   chassisSensorsIMUAccelerometer.setName("ChassisSensors", "IMUAccelerometer");
+ 
+  chassis = new  Chassis(chassisleftFrontDriveMotor,chassisleftRearDriveMotor,chassisrightFrontDriveMotor, chassisrightRearDriveMotor, chassisleftSideDriveMotors,chassisrightSideDriveMotors,chassisrobotDrive);
+  chassisSensors = new ChassisSensors();
+
  }
   /**
    * This function is run when the robot is first started up and should be
@@ -240,7 +242,7 @@ public class Robot extends TimedRobot {
    
 
        
-        elevatorFrontMotor.setNeutralMode(NeutralMode.Brake);
+        /*elevatorFrontMotor.setNeutralMode(NeutralMode.Brake);
         elevatorRearMotor.setNeutralMode(NeutralMode.Brake);
         elevatorMotors = new SpeedControllerGroup(elevatorFrontMotor, elevatorRearMotor);
         elevatorMotors.setName("Elevator", "ElevatorMotors");
@@ -251,27 +253,27 @@ public class Robot extends TimedRobot {
         manipulatorRightWheelMotor.setNeutralMode(NeutralMode.Coast);
         manipulatorWheelMotors = new SpeedControllerGroup(manipulatorLeftWheelMotor, manipulatorRightWheelMotor);
         manipulatorWheelMotors.setName("Manipulator", "WheelMotors");
-
+*/
 
         redInt = 100.0;
         greenInt = 100.0;
         blueInt = 100.0;
         ledBlinkRate = 500;
         
-        
+        /*
         liftLeftFrontMotor.setNeutralMode(NeutralMode.Brake);
         liftLeftRearMotor.setNeutralMode(NeutralMode.Brake);
         liftRightFrontMotor.setNeutralMode(NeutralMode.Brake);
         liftRightRearMotor.setNeutralMode(NeutralMode.Brake);
         liftMotors = new SpeedControllerGroup(liftLeftFrontMotor, liftLeftRearMotor, liftRightFrontMotor, liftRightRearMotor);
         liftMotors.setName("Lift", "LiftMotors");
-
+*/
         dashboardRobotPrefs = Preferences.getInstance();
 
-        limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
+        /*limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
         limelighttx = limelightTable.getEntry("tx");
         limelightty = limelightTable.getEntry("ty");
-        limelightta = limelightTable.getEntry("ta");
+        limelightta = limelightTable.getEntry("ta");*/
 
         limelightX = 0.0;
         limelightY = 0.0;
@@ -281,36 +283,35 @@ public class Robot extends TimedRobot {
         autonSpeed = 0.5;
         autonRotation = 0.0;
         autonTime = 5.0;
-         chassis = new  Chassis(chassisleftFrontDriveMotor,chassisleftRearDriveMotor,chassisrightFrontDriveMotor, chassisrightRearDriveMotor, chassisleftSideDriveMotors,chassisrightSideDriveMotors,chassisrobotDrive);
-        chassisSensors = new ChassisSensors();
+        
+        
         dashboard = new Dashboard();
         debugger = new Debugger();
-        elevator = new Elevator();
+       /* elevator = new Elevator();
         ledControl = new LEDControl();
         lift = new Lift();
         limelight = new Limelight();
-        manipulator = new Manipulator();
+        manipulator = new Manipulator();*/
         
         // OI must be constructed after subsystems. If the OI creates Commands
         //(which it very likely will), subsystems are not guaranteed to be
         // constructed yet. Thus, their requires() statements may grab null
         // pointers. Bad news. Don't move it.
         oi = new OI();
-        
         DS = DriverStation.getInstance();
     
         //Setup Camera
-        rearCameraServer = CameraServer.getInstance().startAutomaticCapture();
+       /* rearCameraServer = CameraServer.getInstance().startAutomaticCapture();
         rearCameraServer.setResolution(320, 180);
-        rearCameraServer.setFPS(15);
+        rearCameraServer.setFPS(15);*/
     
         // Add commands to Autonomous Sendable Chooser
         chooser.setDefaultOption("Do Nothing", "Do Nothing");
         SmartDashboard.putData("Auto mode", chooser);
     
-        Scheduler.getInstance().add(new InitializeDashboard());
+       /* Scheduler.getInstance().add(new InitializeDashboard());
         Scheduler.getInstance().add(new InitializeSensors());
-        Scheduler.getInstance().add(new LimelightCamera());
+        Scheduler.getInstance().add(new LimelightCamera());*/
         Scheduler.getInstance().run();
 
 
@@ -338,8 +339,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    //Scheduler.getInstance().add(new GetRoboPrefs());
-    Scheduler.getInstance().add(new ReadLimelight());
+     // dont add back Scheduler.getInstance().add(new GetRoboPrefs());
+   // Scheduler.getInstance().add(new ReadLimelight());
     Scheduler.getInstance().add(new DashboardOutput());
     Scheduler.getInstance().run();
   }
